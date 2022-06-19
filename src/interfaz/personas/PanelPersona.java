@@ -46,27 +46,19 @@ public class PanelPersona extends JPanel {
 		disenarDisplay();
 				
 		//inicializar textFields
-		InicializadorTextoPersona<LimitarNombres> accionTexto = new InicializadorTextoPersona<LimitarNombres>(this);
-		accionTexto.inicializarTextField(textoNombre, new LimitarNombres(60), 30);
-		accionTexto.inicializarTextField(textoApellido, new LimitarNombres(60), 30);
+		InicializadorTextoPersona<LimitarNombres> iniText = new InicializadorTextoPersona<LimitarNombres>(this);
+		iniText.inicializarTextField(textoNombre, new LimitarNombres(60), 30);
+		iniText.inicializarTextField(textoApellido, new LimitarNombres(60), 30);
 		
 		//inicializar labels
-		inicializarLabel(labelNombre, "");
-		inicializarLabel(labelApellido, "");
-		inicializarLabel(labelFecha, "");
+		InicializadorLabel iniLabel = new InicializadorLabel(this);
+		iniLabel.inicializarLabel(labelNombre, "Nombre de la persona: ");
+		iniLabel.inicializarLabel(labelApellido, "Apellido de la persona: ");
+		iniLabel.inicializarLabel(labelFecha, "Fecha de la persona: ");
 	}
 	
 	
 		//Metodos
-	/**
-	 * inicializa los label
-	 * 
-	 * @param label
-	 */
-	private void inicializarLabel(JLabel label, String texto) {
-		label = new JLabel(texto);
-		this.add(label);
-	}
 	
 	/**
 	 * inicializa el display

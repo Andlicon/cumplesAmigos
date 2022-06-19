@@ -5,13 +5,28 @@ import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class AccionTextoPersona<T extends KeyListener> {
+/**
+ * Inicializador de JTextField para el PanelPersona
+ * 
+ * @author Andlicon
+ * 
+ * @param <T> es la accion a anadir en el JTextField
+ */
+public class InicializadorTextoPersona<T extends KeyListener> {
 		//ATRIBUTOS
+	/**
+	 * JPanel al que se anadiran los textos
+	 */
 	private JPanel panel;
 	
 	
 		//CONSTRUCTOR
-	public AccionTextoPersona(JPanel panel) {
+	/**
+	 * Unico constructor
+	 * 
+	 * @param panel panel al anadir JTextFields 
+	 */
+	public InicializadorTextoPersona(JPanel panel) {
 		this.panel = panel;
 	}
 	
@@ -25,7 +40,7 @@ public class AccionTextoPersona<T extends KeyListener> {
 	 */
 	public void inicializarTextField(JTextField textField, T accionGenerica, int longitud) {
 		textField = new JTextField(longitud);
-		textField.addKeyListener(accionGenerica);		
+		textField.addKeyListener(accionGenerica);
 		panel.add(textField);
 	}
 }

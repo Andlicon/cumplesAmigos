@@ -15,7 +15,7 @@ public class LimitarNombres extends AccionLimitarTexto {
 		//IMPLEMENTACIONES
 	@Override
 	protected boolean isCaracterValido(char caracter) {
-		return Character.isLetter(caracter) || Character.isSpaceChar(caracter);			//SE CORRIGUIO UN ERROR ACA YA QUE NO PODIA ANDAIR ESPACIO
+		return Character.isLetter(caracter) || Character.isSpaceChar(caracter);
 	}
 	
 	@Override

@@ -46,7 +46,7 @@ public class PanelPersona extends JPanel {
 		disenarDisplay();
 				
 		//inicializar textFields
-		AccionTextoPersona<LimitarNombres> accionTexto = new AccionTextoPersona<LimitarNombres>(this);
+		InicializadorTextoPersona<LimitarNombres> accionTexto = new InicializadorTextoPersona<LimitarNombres>(this);
 		accionTexto.inicializarTextField(textoNombre, new LimitarNombres(60), 30);
 		accionTexto.inicializarTextField(textoApellido, new LimitarNombres(60), 30);
 		

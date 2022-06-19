@@ -1,12 +1,11 @@
 package interfaz.personas;
 
+import java.awt.event.KeyListener;
+
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import acciones.texto.AccionLimitarTexto;
-import acciones.texto.LimitarNombres;
-
-public class AccionTextoPersona {
+public class AccionTextoPersona<T extends KeyListener> {
 		//ATRIBUTOS
 	private JPanel panel;
 	
@@ -24,9 +23,9 @@ public class AccionTextoPersona {
 	 * @param textField	textfield
 	 * @param longitud	longitud
 	 */
-	public void inicializarTextField(JTextField textField, int longitud) {
-		textField = new JTextField(longitud/3);
-		textField.addKeyListener(new LimitarNombres(10));		
+	public void inicializarTextField(JTextField textField, T accionGenerica, int longitud) {
+		textField = new JTextField(longitud);
+		textField.addKeyListener(accionGenerica);		
 		panel.add(textField);
 	}
 }

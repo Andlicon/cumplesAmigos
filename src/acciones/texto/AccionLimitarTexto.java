@@ -47,4 +47,13 @@ public abstract class AccionLimitarTexto extends KeyAdapter {
 	protected boolean isLimiteValido(JTextComponent texto) {
 		return texto.getText().length() >= limite_caracteres ? false : true;
 	}
+
+
+	/**
+	 * @return the limite_caracteres
+	 */
+	public int getLimite_caracteres() {
+		return limite_caracteres;
+	}
+
 }

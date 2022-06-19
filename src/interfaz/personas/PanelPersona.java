@@ -4,6 +4,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import acciones.texto.LimitarNombres;
+
 public class PanelPersona extends JPanel {
 		//ATRIBUTOS
 	//textos de donde se extraera la info
@@ -36,35 +38,26 @@ public class PanelPersona extends JPanel {
 	
 	
 		//CONSTRUCTORE
+	/**
+	 * Constructor por defecto
+	 */
 	public PanelPersona() {
+		//crearDisplay
+		disenarDisplay();
+				
 		//inicializar textFields
-		AccionTextoPersona accionTexto = new AccionTextoPersona(this);
-		accionTexto.inicializarTextField(textoNombre, 60);
-		accionTexto.inicializarTextField(textoApellido, 60);
+		AccionTextoPersona<LimitarNombres> accionTexto = new AccionTextoPersona<LimitarNombres>(this);
+		accionTexto.inicializarTextField(textoNombre, new LimitarNombres(60), 30);
+		accionTexto.inicializarTextField(textoApellido, new LimitarNombres(60), 30);
 		
 		//inicializar labels
 		inicializarLabel(labelNombre, "");
 		inicializarLabel(labelApellido, "");
 		inicializarLabel(labelFecha, "");
-		
-		//crearDisplay
-		disenarDisplay();
 	}
 	
 	
 		//Metodos
-	/**
-	 * inicializa los text fields
-	 * 
-	 * @param textField textField
-	 * @param longitud longitud maxima del textField
-	 */
-	private void inicializarTextField(JTextField textField, int longitud) {
-		textField = new JTextField(longitud);
-		
-		this.add(textField);
-	}
-	
 	/**
 	 * inicializa los label
 	 * 

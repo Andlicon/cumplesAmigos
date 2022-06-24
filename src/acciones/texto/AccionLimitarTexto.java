@@ -1,6 +1,7 @@
 package acciones.texto;
 
 import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.text.JTextComponent;
 
@@ -54,6 +55,18 @@ public abstract class AccionLimitarTexto extends KeyAdapter {
 	 */
 	public int getLimite_caracteres() {
 		return limite_caracteres;
+	}
+	
+	
+		//IMPLEMENTACIONES
+	@Override
+	public void keyTyped(KeyEvent e) {
+		if(!isCaracterValido(e.getKeyChar())) {
+			e.consume();
+		}
+		if(!isLimiteValido((JTextComponent) e.getSource())) {
+			e.consume();
+		}
 	}
 
 }

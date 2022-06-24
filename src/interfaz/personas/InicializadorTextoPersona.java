@@ -36,11 +36,13 @@ public class InicializadorTextoPersona<T extends KeyListener> {
 	 * Inicializa el textField
 	 * 
 	 * @param textField	textfield
-	 * @param longitud	longitud
+	 * @param longitud	longitud longitud del cuadro visual que abarca el JTextField
 	 */
-	public void inicializarTextField(JTextField textField, T accionGenerica, int longitud) {
+	public JTextField inicializarTextField(JTextField textField, T accionGenerica, int longitud) {
 		textField = new JTextField(longitud);
 		textField.addKeyListener(accionGenerica);
-		panel.add(textField);
+		//panel.add(textField);
+		
+		return textField;
 	}
 }

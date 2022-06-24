@@ -23,10 +23,10 @@ public class InicializadorLabel {
 	
 	
 		//METODOS
-	public void inicializarLabel(JLabel label, String texto) {
+	public JLabel inicializarLabel(JLabel label, String texto) {
 		label = new JLabel(texto);
 		
-		panel.add(label);
+		return label;
 	}
 	
 }

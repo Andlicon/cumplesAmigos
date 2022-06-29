@@ -4,17 +4,22 @@ import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 
 import javax.swing.Action;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import acciones.texto.AccionLimitarTexto;
 import acciones.texto.LimitarFecha;
 import acciones.texto.LimitarNombres;
+import conexion.IAlmacenador;
+import personas.PersonaData;
 
 public class PanelPersona extends JPanel {
 		//ATRIBUTOS
@@ -45,13 +50,28 @@ public class PanelPersona extends JPanel {
 	 * label para solicitar fecha
 	 */
 	private JLabel labelFecha;
+	/**
+	 * Boton enviar
+	 */
+	private JButton botonEnviar;
+	/**
+	 * Boton borrar
+	 */
+	private JButton botonBorrar;
+	/**
+	 * Conexion a base de dato
+	 */
+	private IAlmacenador almacenador;
 	
 	
 		//CONSTRUCTORE
 	/**
 	 * Constructor por defecto
 	 */
-	public PanelPersona() {	
+	public PanelPersona(IAlmacenador almacenador) {
+		//Asignando valores del constructor
+		this.almacenador = almacenador;
+		
 		//inicializar textFields
 		InicializadorTextoPersona<AccionLimitarTexto> iniText = new InicializadorTextoPersona<AccionLimitarTexto>(this);
 		textoNombre = iniText.inicializarTextField(textoNombre, new LimitarNombres(60), 30);
@@ -62,7 +82,23 @@ public class PanelPersona extends JPanel {
 		InicializadorLabel iniLabel = new InicializadorLabel(this);
 		labelNombre = iniLabel.inicializarLabel(labelNombre, "Nombre de la persona: ");
 		labelApellido = iniLabel.inicializarLabel(labelApellido, "Apellido de la persona: ");
-		labelFecha = iniLabel.inicializarLabel(labelFecha, "Fecha de la persona: ");
+		labelFecha = iniLabel.inicializarLabel(labelFecha, "Fecha de nacimiento YYYY-MM-DD: ");
+		
+		//inicializando botones
+		botonEnviar = new JButton("Enviar");
+		botonEnviar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					almacenador.guardar(new PersonaData(textoNombre.getText(), textoApellido.getText(), Date.valueOf(textoFecha.getText())));
+				}
+				catch (IllegalArgumentException exception) {
+					JOptionPane.showMessageDialog(null, "NO se ha anadido la persona con exito.");
+				}
+			}
+		});
+		
+		botonBorrar = new JButton("Borrar");
 		
 		//crearDisplay
 		disenarDisplay();
@@ -70,30 +106,30 @@ public class PanelPersona extends JPanel {
 	
 	
 		//Metodos
-	
 	/**
 	 * inicializa el display
 	 */
 	private void disenarDisplay() {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		// IBA A CREAR LOS BOXES DONDE ANADIRE ESTO PARA QUE QUEDE BONITO
-		// QUIERO QUE QUEDE ASI:
-		/**
-		 * 	LABEL --- JTEXTFIELD
-		 *  LABEL --- JTEXTFIELD
-		 *  LABEL --- JTEXTFIELD
-		 *     BOTON BOTON
-		 */
+		Box cajaNombre = new Box(BoxLayout.X_AXIS);
+		cajaNombre.add(labelNombre);
+		cajaNombre.add(textoNombre);
+		this.add(cajaNombre);
+
+		Box cajaApellido = new Box(BoxLayout.X_AXIS);
+		cajaApellido.add(labelApellido);
+		cajaApellido.add(textoApellido);
+		this.add(cajaApellido);
 		
-		//Anadiendo componentes, haciendo el diseno
-		this.add(labelNombre);
-		this.add(textoNombre);
-		this.add(labelApellido);
-		this.add(textoApellido);
-		this.add(labelFecha);
-		this.add(textoFecha);
-		this.add(new JButton("Guardar"));
-		this.add(new JButton("Borrar"));
+		Box cajaFecha = new Box(BoxLayout.X_AXIS);
+		cajaFecha.add(labelFecha);
+		cajaFecha.add(textoFecha);
+		this.add(cajaFecha);
+		
+		Box cajaBotones = new Box(BoxLayout.X_AXIS);
+		cajaBotones.add(botonEnviar);
+		cajaBotones.add(botonBorrar);
+		this.add(cajaBotones);
 	}
 }

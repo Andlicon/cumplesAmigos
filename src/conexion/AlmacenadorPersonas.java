@@ -3,6 +3,8 @@ package conexion;
 import java.sql.*;
 import java.time.LocalDate;
 
+import javax.swing.JOptionPane;
+
 import personas.PersonaData;
 /**
  * Implementacion especifica para anadir o extraer personas a la base de datos
@@ -13,8 +15,8 @@ public class AlmacenadorPersonas implements IAlmacenador<PersonaData>{
 		//ATRIBUTOS
 	private ConexionBaseDeDato bdd;
 	
-	public AlmacenadorPersonas(String ruta, String usuario, String contrasena) {
-		bdd = new ConexionBaseDeDato(ruta, usuario, contrasena);
+	public AlmacenadorPersonas() {	
+		bdd = new ConexionBaseDeDato("jdbc:mysql://127.0.0.1:3306/amigos", "root", "admin");
 	}
 
 	@Override
@@ -44,11 +46,9 @@ public class AlmacenadorPersonas implements IAlmacenador<PersonaData>{
 	}
 
 	@Override
-	public void guardar(PersonaData objeto) {
-		PersonaData persona = objeto;
-		
+	public boolean guardar(PersonaData persona) throws IllegalArgumentException {
 		Connection conexion = bdd.conectar();
-		
+		boolean exito = false;
 		
 		try {		//Escribir en la BDD la info de la persona
 			String sql = "INSERT INTO personas (nombres, apellidos, fecha_nacimiento)"
@@ -58,9 +58,9 @@ public class AlmacenadorPersonas implements IAlmacenador<PersonaData>{
 			statement.setString(1, persona.getNombre());
 			statement.setString(2, persona.getApellido());
 			java.util.Date fecha = persona.getFecha_nacimiento();
-			statement.setDate(3, Date.valueOf(LocalDate.of(fecha.getYear(), fecha.getMonth(), fecha.getDay())));
+			statement.setDate(3, java.sql.Date.valueOf(fecha.toString()));
 			statement.executeUpdate();
-			
+			exito = true;
 		} 
 		catch (SQLIntegrityConstraintViolationException e) {
 			System.out.println("Error al insertar persona, se ha violado las restricciones de la Base de Datos.");
@@ -74,6 +74,7 @@ public class AlmacenadorPersonas implements IAlmacenador<PersonaData>{
 			bdd.desconectar();
 		}
 		
+		return exito;
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import conexion.AlmacenadorPersonas;
 import interfaz.personas.PanelPersona;
 
 public class Main {
@@ -14,7 +15,7 @@ public class Main {
 		frame.setBounds(0, 0, 502, 170);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.add(new PanelPersona());
+		frame.add(new PanelPersona(new AlmacenadorPersonas()));
 		frame.setVisible(true);
 	}
 }

@@ -12,7 +12,7 @@ public interface IAlmacenador <T extends Serializable> {
 	/**
 	 * Guarda la informacion
 	 */
-	public abstract void guardar(T objeto);
+	public abstract boolean guardar(T objeto) throws IllegalArgumentException;
 	/**
 	 * Extrae la informacion
 	 */

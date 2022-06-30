@@ -19,7 +19,7 @@ import interfaz.personas.InicializadorLabel;
 import interfaz.personas.InicializadorTextoPersona;
 import personas.PersonaData;
 
-public class CreadorPanelPersona implements CreadorPanelInputInfo {
+public class CreadorPanelPersona extends CreadorPanelInputInfo {
 		//ATRIBUTOS
 	//textos de donde se extraera la info
 	/**
@@ -94,7 +94,8 @@ public class CreadorPanelPersona implements CreadorPanelInputInfo {
 		return new PanelAlmacenar<PersonaData>(new AlmacenadorPersonas(), diccionario, botonCargar);
 	}
 	
-	private void inicializarBotonCargar() {
+	@Override
+	protected void inicializarBotonCargar() {
 		botonCargar = new JButton("Cargar");
 		botonCargar.addActionListener(new ActionListener() {
 			

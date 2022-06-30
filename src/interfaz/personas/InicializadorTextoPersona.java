@@ -12,25 +12,8 @@ import javax.swing.JTextField;
  * 
  * @param <T> es la accion a anadir en el JTextField
  */
-public class InicializadorTextoPersona<T extends KeyListener> {
-		//ATRIBUTOS
-	/**
-	 * JPanel al que se anadiran los textos
-	 */
-	private JPanel panel;
-	
-	
-		//CONSTRUCTOR
-	/**
-	 * Unico constructor
-	 * 
-	 * @param panel panel al anadir JTextFields 
-	 */
-	public InicializadorTextoPersona(JPanel panel) {
-		this.panel = panel;
-	}
-	
-	
+public abstract class InicializadorTextoPersona {
+
 		//METODOS
 	/**
 	 * Inicializa el textField
@@ -38,10 +21,9 @@ public class InicializadorTextoPersona<T extends KeyListener> {
 	 * @param textField	textfield
 	 * @param longitud	longitud longitud del cuadro visual que abarca el JTextField
 	 */
-	public JTextField inicializarTextField(JTextField textField, T accionGenerica, int longitud) {
+	public static <T extends KeyListener> JTextField inicializarTextField(JTextField textField, T accionGenerica, int longitud) {
 		textField = new JTextField(longitud);
 		textField.addKeyListener(accionGenerica);
-		//panel.add(textField);
 		
 		return textField;
 	}
